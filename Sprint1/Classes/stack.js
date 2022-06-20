@@ -10,7 +10,7 @@ class Stack {
 
   push(element) {
     this.items[this.count] = element;
-    console.log(`${element} added to postion ${this.count}`);
+
     this.count += 1;
     return this.count - 1;
   }
@@ -23,14 +23,13 @@ class Stack {
     }
     let deleteItem = this.items[this.count - 1];
     this.count -= 1;
-    console.log(`${deleteItem} deleted from stack`);
     return deleteItem;
   }
 
   //check the element at the top of the stack
 
   peek() {
-    console.log(`Top element is ${this.items[this.count - 1]}`);
+    console.log(`Message: ${this.items[this.count - 1]}`);
     return this.items[this.count - 1];
   }
 

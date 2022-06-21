@@ -16,7 +16,6 @@ class Queue {
       (err, res) => {
         console.log(err, res);
       };
-    pool.end();
   }
 
   dequeue() {

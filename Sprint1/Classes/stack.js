@@ -8,10 +8,16 @@ class Stack {
 
   // adding an element to the stack
 
-  push(element) {
+  push(element, pool, id) {
     this.items[this.count] = element;
-
     this.count += 1;
+    let Qmsg = `INSERT INTO public."Stack"(
+        "Smessage", agent_id)   VALUES ( '${element}',${parseInt(id)});`;
+
+    pool.query(Qmsg),
+      (err, res) => {
+        console.log(err, res);
+      };
     return this.count - 1;
   }
 

@@ -12,9 +12,16 @@ class Queue {
     let Qmsg = `INSERT INTO public."Que"(
     "Qmessage", agent_id)   VALUES ( '${element}',${parseInt(id)});`;
 
+<<<<<<< HEAD
+    pool.query(Qmsg),
+      (err, res) => {
+        console.log(err, res);
+      };
+=======
     pool.query(Qmsg, (err, res) => {
       if (err) throw err;
     });
+>>>>>>> c2620c7f58a32743ae001345863f805734548742
   }
 
   dequeue() {

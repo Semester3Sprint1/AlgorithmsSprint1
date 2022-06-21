@@ -10,10 +10,10 @@ let { Client, Pool } = require("pg");
 
 let client = new Client({
   host: "localhost",
-  user: "alex",
+  user: "mike",
   port: 5432,
-  password: "password",
-  database: "spygames",
+  password: "database",
+  database: "SpyGames",
 });
 
 const app = async (client) => {
@@ -31,10 +31,10 @@ const selectAgent = async (client) => {
   console.log("Welcome To DZ Flowers");
   console.log("");
   let id = prompt("Enter Employee ID: ");
-
+  
   let agentCheck = `SELECT a.code_name FROM public."Agent" a
   WHERE a.agent_id = ${id};`;
-
+  
   let res = await client.query(agentCheck);
   console.log(res.rows[0].code_name);
   return id;

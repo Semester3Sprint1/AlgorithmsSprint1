@@ -6,7 +6,7 @@ let queue = new Queue();
 
 let prompt = require("prompt-sync")({ sigint: true });
 
-let { Pool, Client } = require("pg");
+let { Pool } = require("pg");
 
 let pool = new Pool({
   host: "localhost",
@@ -16,26 +16,61 @@ let pool = new Pool({
   database: "SpyGames",
 });
 
-pool.connect();
 console.log("Welcome To DZ Flowers");
 console.log("");
 // Agents enters their ID, Message and structure into the Dead Drop
 let id = prompt("Enter Employee ID: ");
-console.log(id);
+
 let agentCheck = `SELECT a.code_name FROM public."Agent" a
 WHERE a.agent_id = ${id};`;
-pool.query(agentCheck, (err, res) => {
-  if (!err) {
+pool.connect();
+pool
+  .query(agentCheck)
+  .then((res) => {
+    console.log("");
     console.log(`Welcome Agent ${res.rows[0].code_name}`);
-  } else {
-    console.log(err.message);
-  }
-  pool.end;
-});
+    console.log("");
+    console.log("Make A Selection");
+    console.log("");
+    choice = prompt("1:Leave Message 2:Retrieve Message 3.End:  ");
+    console.log("");
+    if (choice === "1") {
+      let message = prompt("Enter order Details: ");
+      console.log("");
+      let structure = prompt("Enter Q(Queue) or S(Stack): ");
+      // checks the structure and applies the message to the correct drop box
+      if (structure.toUpperCase() === "Q") {
+        queue.enqueue(message, pool, id);
+      } else if (structure.toUpperCase() === "S") {
+        stack.push(message);
+      } else {
+        console.log("Error: Enter Q or S");
+      }
+    } else if (choice === "2") {
+      console.log(2);
+    } else {
+      console.log("Ending Session");
+    }
+  })
+  .catch((e) => console.error(e.stack));
 
-// let message = prompt("Enter order Details: ");
-// let structure = prompt("Enter Q(Queue) or S(Stack): ");
-// checks the structure and applies the message to the correct drop box
+pool.end();
+
+// let agentCheck = `SELECT a.code_name FROM public."Agent" a
+// WHERE a.agent_id = ${id};`;
+// pool.connect();
+// pool.query(agentCheck, (err, res) => {
+//   if (!err) {
+//     console.log(`Welcome Agent ${res.rows[0].code_name}`);
+//   } else {
+//     console.log(err.message);
+//   }
+
+//   pool.end();
+// });
+
+// let messageQ = `INSERT INTO public."Que"("Qmessage, agent_id) VALUES(${message}, ${id})`;
+
 // if (
 //   structure.toUpperCase() === "Q"
 //     ? queue.enqueue(message)

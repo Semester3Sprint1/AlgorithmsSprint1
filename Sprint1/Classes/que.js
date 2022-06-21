@@ -5,9 +5,18 @@ class Queue {
     this.count = 0;
   }
 
-  enqueue(element) {
+  enqueue(element, pool, id) {
     this.items[this.count] = element;
     this.count++;
+
+    let Qmsg = `INSERT INTO public."Que"(
+    "Qmessage", agent_id)   VALUES ( '${element}',${parseInt(id)});`;
+
+    pool.query(Qmsg),
+      (err, res) => {
+        console.log(err, res);
+      };
+    pool.end();
   }
 
   dequeue() {

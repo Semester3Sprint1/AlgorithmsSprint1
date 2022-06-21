@@ -5,11 +5,12 @@ let prompt = require("prompt-sync")({ sigint: true });
 
 let pool = new Pool({
   host: "localhost",
-  user: "mike",
+  user: "alex",
   port: 5432,
-  password: "database",
-  database: "SpyGames",
+  password: "password",
+  database: "spygames",
 });
+
 let id = prompt("Enter Employee ID: ");
 let message = prompt("Enter order Details: ");
 queue.enqueue(message, pool, id);

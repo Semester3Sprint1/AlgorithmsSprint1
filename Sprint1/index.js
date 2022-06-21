@@ -10,10 +10,10 @@ let { Pool } = require("pg");
 
 let pool = new Pool({
   host: "localhost",
-  user: "mike",
+  user: "alex",
   port: 5432,
-  password: "database",
-  database: "SpyGames",
+  password: "password",
+  database: "spygames",
 });
 
 console.log("Welcome To DZ Flowers");

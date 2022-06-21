@@ -12,10 +12,16 @@ class Queue {
     let Qmsg = `INSERT INTO public."Que"(
     "Qmessage", agent_id)   VALUES ( '${element}',${parseInt(id)});`;
 
+<<<<<<< HEAD
     pool.query(Qmsg),
       (err, res) => {
         console.log(err, res);
       };
+=======
+    pool.query(Qmsg, (err, res) => {
+      if (err) throw err;
+    });
+>>>>>>> c2620c7f58a32743ae001345863f805734548742
   }
 
   dequeue() {
@@ -31,8 +37,17 @@ class Queue {
   isEmpty() {
     return this.count - this.lowestCount === 0;
   }
-  peek() {
-    return this.items[this.lowestCount];
+
+  async peek(pool) {
+    let Qmsg = `SELECT q."Qmessage" FROM public."Que" q;`;
+    let res = await pool.query(Qmsg);
+    return res.rows[0].Qmessage;
+    // pool.query(Qmsg, (err, res) => {
+    //   if (err) throw err;
+    //   return res;
+    // });
+
+    // return this.items[this.lowestCount];
   }
 
   size() {

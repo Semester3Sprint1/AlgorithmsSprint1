@@ -1,3 +1,8 @@
+// Team 1
+// Authors: AlexRidgeley,Cody Barrett,Mike Wadden
+// Datastructure & Algorithm Sprint Project
+// June 20th, 2022
+
 const Stack = require("./Classes/stack");
 let stack = new Stack();
 
@@ -10,10 +15,10 @@ let { Client, Pool } = require("pg");
 
 let client = new Client({
   host: "localhost",
-  user: "alex",
+  user: "mike",
   port: 5432,
-  password: "password",
-  database: "spygames",
+  password: "database",
+  database: "SpyGames",
 });
 
 const app = async (client) => {
